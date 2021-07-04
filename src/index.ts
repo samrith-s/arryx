@@ -5,14 +5,14 @@ import { fillValue } from "./utils";
  *
  * Examples:
  * ```ts
- * import { ArrayX } from 'arrayx';
- * const array1 = new ArrayX() // []
- * const array2 = new ArrayX(3) // [empty x3]
- * const array3 = new ArrayX(3).fill(1) // [1, 1, 1]
- * const array4 = new ArrayX([1,2,3]) // [1, 2, 3]
+ * import { Arryx } from 'arryx';
+ * const array1 = new Arryx() // []
+ * const array2 = new Arryx(3) // [empty x3]
+ * const array3 = new Arryx(3).fill(1) // [1, 1, 1]
+ * const array4 = new Arryx([1,2,3]) // [1, 2, 3]
  * ```
  */
-export class ArrayX<T = unknown> {
+export class Arryx<T = unknown> {
   /**
    * Create an new array.
    */
@@ -29,7 +29,7 @@ export class ArrayX<T = unknown> {
   /**
    * Creates a new array from given entry(ies).
    */
-  static from<FT>(entries: FT | FT[]): ArrayX<FT> {
+  static from<FT>(entries: FT | FT[]): Arryx<FT> {
     let _entries: FT[];
 
     if (Array.isArray(entries)) {
@@ -38,14 +38,14 @@ export class ArrayX<T = unknown> {
       _entries = [entries];
     }
 
-    return ArrayX.from<FT>(_entries);
+    return Arryx.from<FT>(_entries);
   }
 
   /**
-   * Checks if the provided argument is an instance of `ArrayX` or not.
+   * Checks if the provided argument is an instance of `Arryx` or not.
    */
   static is(object: unknown): boolean {
-    return object instanceof ArrayX;
+    return object instanceof Arryx;
   }
 
   /**
@@ -77,7 +77,7 @@ export class ArrayX<T = unknown> {
   /**
    * Clear all entries from the array.
    */
-  public clear(): ArrayX<T> {
+  public clear(): Arryx<T> {
     this.#array = [];
     this.#length = 0;
     return this;
@@ -86,16 +86,16 @@ export class ArrayX<T = unknown> {
   /**
    * Creates a shallow copy of the array.
    */
-  public clone(): ArrayX<T> {
-    return ArrayX.from<T>(this.#array);
+  public clone(): Arryx<T> {
+    return Arryx.from<T>(this.#array);
   }
 
   /**
    * Concatenates two arrays and returns a new array pre-filled with the entries from the two arrays.
    */
-  public concat<N>(array: ArrayX<N>): ArrayX<T | N> {
+  public concat<N>(array: Arryx<N>): Arryx<T | N> {
     const newEntries: (T | N)[] = [...this.#array, ...array.entries()];
-    return ArrayX.from<T | N>(newEntries);
+    return Arryx.from<T | N>(newEntries);
   }
 
   /**
@@ -120,8 +120,8 @@ export class ArrayX<T = unknown> {
     value: N extends Function ? never : N,
     startIndex?: number,
     endIndex?: number
-  ): ArrayX<N> {
-    const _this = this as unknown as ArrayX<N>;
+  ): Arryx<N> {
+    const _this = this as unknown as Arryx<N>;
     fillValue({
       value,
       entries: _this.#array,
@@ -139,8 +139,8 @@ export class ArrayX<T = unknown> {
     filler: (index: number, entries: N[]) => N,
     startIndex?: number,
     endIndex?: number
-  ): ArrayX<N> {
-    const _this = this as unknown as ArrayX<N>;
+  ): Arryx<N> {
+    const _this = this as unknown as Arryx<N>;
     fillValue({
       value: filler,
       entries: _this.#array,
@@ -154,9 +154,9 @@ export class ArrayX<T = unknown> {
   /**
    * Returns a new array with entries of the array that meet the predicate.
    */
-  public filter(predicate: (value: T, index: number, entries: T[]) => value is T): ArrayX<T> {
+  public filter(predicate: (value: T, index: number, entries: T[]) => value is T): Arryx<T> {
     const newEntries = this.#array.filter<T>(predicate);
-    return ArrayX.from<T>(newEntries);
+    return Arryx.from<T>(newEntries);
   }
 
   /**
@@ -176,9 +176,9 @@ export class ArrayX<T = unknown> {
   /**
    * Returns a new array with all sub-array elements concatenated into it recursively up to the specified depth.
    */
-  public flat<NT = T>(depth?: number): ArrayX<NT> {
+  public flat<NT = T>(depth?: number): Arryx<NT> {
     const newEntries = this.#array.flat(depth) as unknown as NT[];
-    return ArrayX.from<NT>(newEntries);
+    return Arryx.from<NT>(newEntries);
   }
 
   /**
@@ -186,9 +186,9 @@ export class ArrayX<T = unknown> {
    */
   public flatMap<NT = T>(
     mapper: (entry: T, index: number, entries: T[]) => NT | readonly NT[]
-  ): ArrayX<NT> {
+  ): Arryx<NT> {
     const newEntries = this.#array.flatMap(mapper) as unknown as NT[];
-    return ArrayX.from<NT>(newEntries);
+    return Arryx.from<NT>(newEntries);
   }
 
   /**
@@ -248,9 +248,9 @@ export class ArrayX<T = unknown> {
   /**
    * Calls a defined callback function on each entry of the array, and returns an new array that contains the results.
    */
-  public map<NT = T>(mapper: (entry: T, index: number, entries: T[]) => NT): ArrayX<NT> {
+  public map<NT = T>(mapper: (entry: T, index: number, entries: T[]) => NT): Arryx<NT> {
     const newEntries = this.#array.map(mapper);
-    return ArrayX.from<NT>(newEntries);
+    return Arryx.from<NT>(newEntries);
   }
 
   /**
@@ -337,7 +337,7 @@ export class ArrayX<T = unknown> {
   /**
    * Reverses the entries in the array. This method mutates the entries in the array and returns a reference the instance of the array.
    */
-  public reverse(): ArrayX<T> {
+  public reverse(): Arryx<T> {
     this.#array.reverse();
     return this;
   }
@@ -362,7 +362,7 @@ export class ArrayX<T = unknown> {
   /**
    * Sorts and returns the instance of the array.
    */
-  public sort(sorter?: (firstEntry: T, secondEntry: T) => number): ArrayX<T> {
+  public sort(sorter?: (firstEntry: T, secondEntry: T) => number): Arryx<T> {
     this.#array.sort(sorter);
     return this;
   }
@@ -370,7 +370,7 @@ export class ArrayX<T = unknown> {
   /**
    * Returns a new array as a subset of entries from the existing instance.
    */
-  public take(count: number, startIndex?: number): ArrayX<T> {
+  public take(count: number, startIndex?: number): Arryx<T> {
     const entries: T[] = [];
     for (let i = startIndex || 0; i < count; i++) {
       const peekedItem = this.peekAt(i);
@@ -379,7 +379,7 @@ export class ArrayX<T = unknown> {
       }
     }
 
-    return ArrayX.from(entries);
+    return Arryx.from(entries);
   }
 
   /**
@@ -400,7 +400,7 @@ export class ArrayX<T = unknown> {
   /**
    * Update the entry at a specified index.
    */
-  public update(index: number, newItem: T): ArrayX<T> {
+  public update(index: number, newItem: T): Arryx<T> {
     if (index >= 0 && index < length) {
       this.#array[index] = newItem;
     }

@@ -1,4 +1,4 @@
-# ArrayX
+# Arryx
 
 A lightweight implementation over native Javascript array for some extra sauce.
 
