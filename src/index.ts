@@ -5,13 +5,11 @@ import { fillValue } from "./utils";
  *
  * Examples:
  * ```ts
- * const array = new ArrayX()
- * ```
- * ```ts
- * const array = new ArrayX(3)
- * ```
- * ```ts
- * const array = new ArrayX([1,2,3])
+ * import { ArrayX } from 'arrayx';
+ * const array1 = new ArrayX() // []
+ * const array2 = new ArrayX(3) // [empty x3]
+ * const array3 = new ArrayX(3).fill(1) // [1, 1, 1]
+ * const array4 = new ArrayX([1,2,3]) // [1, 2, 3]
  * ```
  */
 export class ArrayX<T = unknown> {
@@ -311,6 +309,13 @@ export class ArrayX<T = unknown> {
   }
 
   /**
+   * Performs the specified action for each entry in the array.
+   */
+  public forEach(iterator: (value: T, index: number, entries: T[]) => void): void {
+    this.#array.forEach(iterator);
+  }
+
+  /**
    * Returns a new array with entries of the array that meet the predicate.
    */
   public filter(predicate: (value: T, index: number, entries: T[]) => value is T): ArrayX<T> {
@@ -389,7 +394,7 @@ export class ArrayX<T = unknown> {
   }
 
   /**
-   * Returns a string representation of an array.
+   * Returns a string representation of the array.
    */
   public toString(): string {
     return this.#array.toString();
