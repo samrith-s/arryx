@@ -17,11 +17,11 @@ import { fillValue } from "./utils";
 export class ArrayX<T = unknown> {
   constructor(initializer: T[] | number = []) {
     if (Array.isArray(initializer)) {
-      this.#_array = initializer;
-      this.#_length = initializer.length;
+      this.#array = initializer;
+      this.#length = initializer.length;
     } else {
-      this.#_array = new Array(initializer);
-      this.#_length = initializer;
+      this.#array = new Array(initializer);
+      this.#length = initializer;
     }
   }
 
@@ -29,12 +29,12 @@ export class ArrayX<T = unknown> {
    * Local array over which functions execute.
    * @internal
    */
-  #_array: T[] = [];
+  #array: T[] = [];
   /**
    * Counter to maintain length of the array.
    * @internal
    */
-  #_length = 0;
+  #length = 0;
 
   /**
    * Checks if the provided argument is an instance of `ArrayX` or not.
@@ -62,7 +62,7 @@ export class ArrayX<T = unknown> {
    * Returns the number of entries in the array.
    */
   public get length(): number {
-    return this.#_length;
+    return this.#length;
   }
 
   public get empty(): boolean {
@@ -73,23 +73,23 @@ export class ArrayX<T = unknown> {
    * Returns all the entries in the array.
    */
   public entries(): T[] {
-    return this.#_array;
+    return this.#array;
   }
 
   /**
    * Insert a new entry to the end of the array.
    */
   public push(entry: T): number {
-    this.#_array.push(entry);
-    return this.#_length++;
+    this.#array.push(entry);
+    return this.#length++;
   }
 
   /**
    * Insert a new entry to the beginning of the array.
    */
   public unshift(entry: T): number {
-    this.#_array.unshift(entry);
-    return this.#_length++;
+    this.#array.unshift(entry);
+    return this.#length++;
   }
 
   /**
@@ -99,16 +99,16 @@ export class ArrayX<T = unknown> {
     if (Array.isArray(entries)) {
       let startIndex = index;
       entries.forEach((entry) => {
-        this.#_array.splice(startIndex, 0, entry);
+        this.#array.splice(startIndex, 0, entry);
         startIndex++;
-        this.#_length++;
+        this.#length++;
       });
     } else {
-      this.#_array.splice(index, 0, entries);
-      this.#_length++;
+      this.#array.splice(index, 0, entries);
+      this.#length++;
     }
 
-    return this.#_length;
+    return this.#length;
   }
 
   /**
@@ -116,7 +116,7 @@ export class ArrayX<T = unknown> {
    */
   public update(index: number, newItem: T): ArrayX<T> {
     if (index >= 0 && index < length) {
-      this.#_array[index] = newItem;
+      this.#array[index] = newItem;
     }
     return this;
   }
@@ -126,8 +126,8 @@ export class ArrayX<T = unknown> {
    */
   public pop(): T | undefined {
     if (this.length) {
-      this.#_length--;
-      return this.#_array.pop();
+      this.#length--;
+      return this.#array.pop();
     }
   }
 
@@ -136,8 +136,8 @@ export class ArrayX<T = unknown> {
    */
   public shift(): T | undefined {
     if (this.length) {
-      this.#_length--;
-      return this.#_array.shift();
+      this.#length--;
+      return this.#array.shift();
     }
   }
 
@@ -146,8 +146,8 @@ export class ArrayX<T = unknown> {
    */
   public removeAt(index: number): T | undefined {
     if (this.length) {
-      this.#_length--;
-      return this.#_array.splice(index, 1)[0];
+      this.#length--;
+      return this.#array.splice(index, 1)[0];
     }
   }
 
@@ -155,22 +155,22 @@ export class ArrayX<T = unknown> {
    * Remove `N` entries in the array from a starting index.
    */
   public removeRange(start: number, count: number): T[] {
-    this.#_length -= count;
-    return this.#_array.splice(start, count);
+    this.#length -= count;
+    return this.#array.splice(start, count);
   }
 
   /**
    * Peek at the first entry in the array.
    */
   public peek(): T {
-    return this.#_array[0];
+    return this.#array[0];
   }
 
   /**
    * Peek at the last entry in the array. This returns the reference of the entry.
    */
   public peekLast(): T {
-    return this.#_array[this.#_length - 1];
+    return this.#array[this.#length - 1];
   }
 
   /**
@@ -178,10 +178,10 @@ export class ArrayX<T = unknown> {
    */
   public peekAt(index: number): T {
     if (index < 0) {
-      return this.#_array[this.#_length - Math.abs(index)];
+      return this.#array[this.#length - Math.abs(index)];
     }
 
-    return this.#_array[index];
+    return this.#array[index];
   }
 
   /**
@@ -203,56 +203,56 @@ export class ArrayX<T = unknown> {
    * Find an entry which matches the criteria.
    */
   public find(finder: (entry: T) => boolean): T | undefined {
-    return this.#_array.find(finder);
+    return this.#array.find(finder);
   }
 
   /**
    * Find the index of the entry in the array, given a predicate
    */
   public findIndex(predicate: (entry: T) => boolean): number {
-    return this.#_array.findIndex(predicate);
+    return this.#array.findIndex(predicate);
   }
 
   /**
    * Find the index of an entry.
    */
   public indexOf(entry: T): number {
-    return this.#_array.indexOf(entry);
+    return this.#array.indexOf(entry);
   }
 
   /**
    * Find the index of last occurence of an entry.
    */
   public lastIndexOf(entry: T): number {
-    return this.#_array.lastIndexOf(entry);
+    return this.#array.lastIndexOf(entry);
   }
 
   /**
    * Check if some entries in the array match the predicate.
    */
   public some(predicate: (entry: T) => boolean): boolean {
-    return this.#_array.some(predicate);
+    return this.#array.some(predicate);
   }
 
   /**
    * Check if all entries in the array match the predicate.
    */
   public every(predicate: (entry: T) => boolean): boolean {
-    return this.#_array.every(predicate);
+    return this.#array.every(predicate);
   }
 
   /**
    * Check whether the array includes a certain entry.
    */
   public includes(item: T, fromIndex?: number): boolean {
-    return this.#_array.includes(item, fromIndex);
+    return this.#array.includes(item, fromIndex);
   }
 
   /**
    * Sorts and returns the instance of the array.
    */
   public sort(sorter?: (itemA: T, itemB: T) => number): ArrayX<T> {
-    this.#_array.sort(sorter);
+    this.#array.sort(sorter);
     return this;
   }
 
@@ -260,7 +260,7 @@ export class ArrayX<T = unknown> {
    * Reverses the entries in the array. This method mutates the entries in the array and returns a reference the instance of the array.
    */
   public reverse(): ArrayX<T> {
-    this.#_array.reverse();
+    this.#array.reverse();
     return this;
   }
 
@@ -271,7 +271,7 @@ export class ArrayX<T = unknown> {
     reducer: (previous: NT, current: T, index: number, entries: T[]) => NT,
     initialValue: NT
   ): NT {
-    return this.#_array.reduce<NT>(reducer, initialValue);
+    return this.#array.reduce<NT>(reducer, initialValue);
   }
 
   /**
@@ -281,21 +281,21 @@ export class ArrayX<T = unknown> {
     reducer: (previous: NT, current: T, index: number, entries: T[]) => NT,
     initialValue: NT
   ): NT {
-    return this.#_array.reduceRight<NT>(reducer, initialValue);
+    return this.#array.reduceRight<NT>(reducer, initialValue);
   }
 
   /**
    * Calls a defined callback function on each entry of the array, and returns an array that contains the results.
    */
   public map<NT = T>(mapper: (entry: T, index: number, entries: T[]) => NT): NT[] {
-    return this.#_array.map(mapper);
+    return this.#array.map(mapper);
   }
 
   /**
    * Returns the entries of the array that meet the predicate.
    */
   public filter(predicate: (value: T, index: number, entries: T[]) => value is T): T[] {
-    return this.#_array.filter<T>(predicate);
+    return this.#array.filter<T>(predicate);
   }
 
   /**
@@ -310,8 +310,8 @@ export class ArrayX<T = unknown> {
     const _this = this as unknown as ArrayX<N>;
     fillValue({
       value,
-      entries: _this.#_array,
-      length: _this.#_length,
+      entries: _this.#array,
+      length: _this.#length,
       startIndex,
       endIndex,
     });
@@ -329,8 +329,8 @@ export class ArrayX<T = unknown> {
     const _this = this as unknown as ArrayX<N>;
     fillValue({
       value: filler,
-      entries: _this.#_array,
-      length: _this.#_length,
+      entries: _this.#array,
+      length: _this.#length,
       startIndex,
       endIndex,
     });
@@ -341,7 +341,7 @@ export class ArrayX<T = unknown> {
    * Concatenates two stacks and returns a new array pre-filled with tne entries from the two stacks.
    */
   public concat<N>(array: ArrayX<N>): ArrayX<T | N> {
-    const newItems: (T | N)[] = [...this.#_array, ...array.entries()];
+    const newItems: (T | N)[] = [...this.#array, ...array.entries()];
     return new ArrayX<T | N>(newItems);
   }
 
@@ -349,22 +349,22 @@ export class ArrayX<T = unknown> {
    * Adds all the entries of the array into a string, separated by the specified separator string.
    */
   public join(separator?: string): string {
-    return this.#_array.join(separator);
+    return this.#array.join(separator);
   }
 
   /**
    * Creates a shallow copy of the array.
    */
   public clone(): ArrayX<T> {
-    return new ArrayX<T>(this.#_array);
+    return new ArrayX<T>(this.#array);
   }
 
   /**
    * Clear all entries from the array.
    */
   public clear(): ArrayX<T> {
-    this.#_array = [];
-    this.#_length = 0;
+    this.#array = [];
+    this.#length = 0;
     return this;
   }
 }
