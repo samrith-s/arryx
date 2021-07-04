@@ -367,4 +367,11 @@ export class ArrayX<T = unknown> {
     this.#length = 0;
     return this;
   }
+
+  /**
+   * Returns a string representation of an array.
+   */
+  public toString(): string {
+    return this.#array.toString();
+  }
 }
