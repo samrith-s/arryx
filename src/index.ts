@@ -47,15 +47,15 @@ export class ArrayX<T = unknown> {
    * Creates a new array from an entries.
    */
   static from<FT>(entries: FT | FT[]): ArrayX<FT> {
-    let _items: FT[];
+    let _entries: FT[];
 
     if (Array.isArray(entries)) {
-      _items = entries;
+      _entries = entries;
     } else {
-      _items = [entries];
+      _entries = [entries];
     }
 
-    return new ArrayX<FT>(_items);
+    return ArrayX.from<FT>(_entries);
   }
 
   /**
@@ -152,7 +152,7 @@ export class ArrayX<T = unknown> {
   }
 
   /**
-   * Remove `N` entries in the array from a starting index.
+   * Remove `N` entries in the array from a starting index. Returns the removed elements.
    */
   public removeRange(start: number, count: number): T[] {
     this.#length -= count;
@@ -196,7 +196,7 @@ export class ArrayX<T = unknown> {
       }
     }
 
-    return new ArrayX<T>(entries);
+    return ArrayX.from(entries);
   }
 
   /**
@@ -244,14 +244,14 @@ export class ArrayX<T = unknown> {
   /**
    * Check whether the array includes a certain entry.
    */
-  public includes(item: T, fromIndex?: number): boolean {
-    return this.#array.includes(item, fromIndex);
+  public includes(entry: T, fromIndex?: number): boolean {
+    return this.#array.includes(entry, fromIndex);
   }
 
   /**
    * Sorts and returns the instance of the array.
    */
-  public sort(sorter?: (itemA: T, itemB: T) => number): ArrayX<T> {
+  public sort(sorter?: (firstEntry: T, secondEntry: T) => number): ArrayX<T> {
     this.#array.sort(sorter);
     return this;
   }
@@ -285,17 +285,37 @@ export class ArrayX<T = unknown> {
   }
 
   /**
-   * Calls a defined callback function on each entry of the array, and returns an array that contains the results.
+   * Returns a new array with all sub-array elements concatenated into it recursively up to the specified depth.
    */
-  public map<NT = T>(mapper: (entry: T, index: number, entries: T[]) => NT): NT[] {
-    return this.#array.map(mapper);
+  public flat<NT = T>(depth?: number): ArrayX<NT> {
+    const newEntries = this.#array.flat(depth) as unknown as NT[];
+    return ArrayX.from<NT>(newEntries);
   }
 
   /**
-   * Returns the entries of the array that meet the predicate.
+   * Calls a defined callback function on each entry of the array. Then, flattens the result into a new array.
    */
-  public filter(predicate: (value: T, index: number, entries: T[]) => value is T): T[] {
-    return this.#array.filter<T>(predicate);
+  public flatMap<NT = T>(
+    mapper: (entry: T, index: number, entries: T[]) => NT | readonly NT[]
+  ): ArrayX<NT> {
+    const newEntries = this.#array.flatMap(mapper) as unknown as NT[];
+    return ArrayX.from<NT>(newEntries);
+  }
+
+  /**
+   * Calls a defined callback function on each entry of the array, and returns an new array that contains the results.
+   */
+  public map<NT = T>(mapper: (entry: T, index: number, entries: T[]) => NT): ArrayX<NT> {
+    const newEntries = this.#array.map(mapper);
+    return ArrayX.from<NT>(newEntries);
+  }
+
+  /**
+   * Returns a new array with entries of the array that meet the predicate.
+   */
+  public filter(predicate: (value: T, index: number, entries: T[]) => value is T): ArrayX<T> {
+    const newEntries = this.#array.filter<T>(predicate);
+    return ArrayX.from<T>(newEntries);
   }
 
   /**
@@ -338,11 +358,11 @@ export class ArrayX<T = unknown> {
   }
 
   /**
-   * Concatenates two stacks and returns a new array pre-filled with tne entries from the two stacks.
+   * Concatenates two arrays and returns a new array pre-filled with the entries from the two arrays.
    */
   public concat<N>(array: ArrayX<N>): ArrayX<T | N> {
-    const newItems: (T | N)[] = [...this.#array, ...array.entries()];
-    return new ArrayX<T | N>(newItems);
+    const newEntries: (T | N)[] = [...this.#array, ...array.entries()];
+    return ArrayX.from<T | N>(newEntries);
   }
 
   /**
@@ -356,7 +376,7 @@ export class ArrayX<T = unknown> {
    * Creates a shallow copy of the array.
    */
   public clone(): ArrayX<T> {
-    return new ArrayX<T>(this.#array);
+    return ArrayX.from<T>(this.#array);
   }
 
   /**
