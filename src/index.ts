@@ -185,14 +185,18 @@ export class ArrayX<T = unknown> {
   }
 
   /**
-   * Returns the first `N` items of the array from the specified start index.
+   * Returns a new array as a subset of entries from the existing instance.
    */
-  public take(count: number, startIndex?: number): T[] {
+  public take(count: number, startIndex?: number): ArrayX<T> {
     const entries: T[] = [];
     for (let i = startIndex || 0; i < count; i++) {
-      entries.push(this.peekAt(i));
+      const peekedItem = this.peekAt(i);
+      if (peekedItem) {
+        entries.push(peekedItem);
+      }
     }
-    return entries;
+
+    return new ArrayX<T>(entries);
   }
 
   /**
