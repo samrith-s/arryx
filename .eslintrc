@@ -5,5 +5,34 @@
     "sourceType": "module"
   },
   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
-  "plugins": ["@typescript-eslint", "prettier"]
+  "plugins": ["@typescript-eslint", "sort-class-members", "prettier"],
+  "rules": {
+    "lines-between-class-members": "error",
+    "sort-class-members/sort-class-members": [
+      2,
+      {
+        "order": [
+          "constructor",
+          "[x-methods-static]",
+          "[x-properties]",
+          "[x-getters]",
+          "[x-methods]"
+        ],
+        "groups": {
+          "x-properties": {
+            "name": "/#.+/",
+            "sort": "alphabetical"
+          },
+          "x-getters": {
+            "type": "method",
+            "kind": "get",
+            "sort": "alphabetical"
+          },
+          "x-methods": { "type": "method", "sort": "alphabetical" },
+          "x-methods-static": { "type": "method", "static": true, "sort": "alphabetical" }
+        },
+        "accessorPairPositioning": "getThenSet"
+      }
+    ]
+  }
 }
