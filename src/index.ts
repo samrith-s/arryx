@@ -1,7 +1,7 @@
 import { fillValue } from "./utils";
 
 /**
- * A lightweight implementation over native Javascript array some extra sauce.
+ * A lightweight implementation over native Javascript array for some extra sauce..
  *
  * Examples:
  * ```ts
@@ -27,7 +27,7 @@ export class ArrayX<T = unknown> {
   }
 
   /**
-   * Creates a new array from an entries.
+   * Creates a new array from given entry(ies).
    */
   static from<FT>(entries: FT | FT[]): ArrayX<FT> {
     let _entries: FT[];
@@ -61,7 +61,7 @@ export class ArrayX<T = unknown> {
   #length = 0;
 
   /**
-   * Returns whether the array is empty or not
+   * Returns whether the array is empty or not.
    */
   get empty(): boolean {
     return !!this.length;
@@ -167,7 +167,7 @@ export class ArrayX<T = unknown> {
   }
 
   /**
-   * Find the index of the entry in the array, given a predicate
+   * Find the index of the entry in the array, given a predicate.
    */
   public findIndex(predicate: (entry: T) => boolean): number {
     return this.#array.findIndex(predicate);
