@@ -4,7 +4,7 @@ const array = new ArrayX([1, 2, 3, 4]);
 console.log("before:", array.entries(), array.length);
 array.insert(1, [8, 9, 10]);
 console.log("after:", array.entries(), array.length);
-console.log("is array", ArrayX.isStack({}));
+console.log("is array", ArrayX.is({}));
 console.log(
   array.reduce(
     (acc, next) => ({
