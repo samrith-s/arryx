@@ -1,0 +1,42 @@
+{
+  "name": "arrayx",
+  "version": "0.0.0",
+  "description": "A simple stack implementation over native Array data structure",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "author": "Samrith Shankar <samrith.shankar@outlook.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "postinstall": "husky install",
+    "prepare": "yarn build",
+    "dev": "tsup --sourcemap --watch src --watch tsup.config.ts",
+    "build": "tsup",
+    "use": "ts-node ./src/usage",
+    "release": "standard-version"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
+    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "@typescript-eslint/parser": "^4.28.1",
+    "eslint": "^7.30.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^7.0.0",
+    "prettier": "^2.3.2",
+    "standard-version": "^9.3.0",
+    "ts-node": "^10.0.0",
+    "tsup": "^4.12.0",
+    "typescript": "^4.3.5"
+  },
+  "keywords": [
+    "stack",
+    "array",
+    "array stack",
+    "stackjs",
+    "stack javascript",
+    "lifo",
+    "fifo"
+  ]
+}
