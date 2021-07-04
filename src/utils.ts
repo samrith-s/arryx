@@ -12,7 +12,7 @@ export function fillValue<T>({
   endIndex?: number;
 }): void {
   let _startIndex = startIndex || 0;
-  let _endIndex = endIndex || length - 1;
+  let _endIndex = endIndex ?? length - 1;
 
   if (_endIndex < _startIndex) {
     const temp = _startIndex;

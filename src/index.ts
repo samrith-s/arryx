@@ -7,23 +7,32 @@ import { fillValue } from "./utils";
  * ```ts
  * import { Arryx } from 'arryx';
  * const array1 = new Arryx() // []
- * const array2 = new Arryx(3) // [empty x3]
- * const array3 = new Arryx(3).fill(1) // [1, 1, 1]
- * const array4 = new Arryx([1,2,3]) // [1, 2, 3]
+ * const array2 = new Arryx(3) // [3]
+ * const array3 = new Arryx([1,2,3]) // [1, 2, 3]
  * ```
  */
 export class Arryx<T = unknown> {
   /**
    * Create an new array.
    */
-  constructor(initializer: T[] | number = []) {
-    if (Array.isArray(initializer)) {
-      this.#array = initializer;
-      this.#length = initializer.length;
-    } else {
-      this.#array = new Array(initializer);
-      this.#length = initializer;
+  constructor(initialValues?: T | T[]) {
+    if (initialValues !== undefined) {
+      if (Array.isArray(initialValues)) {
+        this.#array = initialValues;
+        this.#length = initialValues.length;
+      } else {
+        this.#array = [initialValues];
+        this.#length = 1;
+      }
     }
+  }
+
+  /**
+   * Create a new array of the specified size.
+   */
+  static create<NT>(size: number): Arryx<NT> {
+    const emptyInitial = new Array(size);
+    return Arryx.from<NT>(emptyInitial);
   }
 
   /**
@@ -38,7 +47,7 @@ export class Arryx<T = unknown> {
       _entries = [entries];
     }
 
-    return Arryx.from<FT>(_entries);
+    return new Arryx<FT>(_entries);
   }
 
   /**
@@ -167,7 +176,7 @@ export class Arryx<T = unknown> {
   }
 
   /**
-   * Find the index of the entry in the array, given a predicate.
+   * Find the index of the first matching entry in the array, given a predicate. If no match found, returns `-1`.
    */
   public findIndex(predicate: (entry: T) => boolean): number {
     return this.#array.findIndex(predicate);
@@ -206,10 +215,10 @@ export class Arryx<T = unknown> {
   }
 
   /**
-   * Find the index of an entry.
+   * Find the index of the first occurence of an entry. If no match found, returns `-1`.
    */
-  public indexOf(entry: T): number {
-    return this.#array.indexOf(entry);
+  public indexOf(entry: T, fromindex?: number): number {
+    return this.#array.indexOf(entry, fromindex);
   }
 
   /**
@@ -239,10 +248,10 @@ export class Arryx<T = unknown> {
   }
 
   /**
-   * Find the index of last occurence of an entry.
+   * Find the index of last occurence of an entry. If no match found, returns `-1`.
    */
-  public lastIndexOf(entry: T): number {
-    return this.#array.lastIndexOf(entry);
+  public lastIndexOf(entry: T, fromIndex?: number): number {
+    return this.#array.lastIndexOf(entry, fromIndex);
   }
 
   /**
@@ -297,7 +306,7 @@ export class Arryx<T = unknown> {
   }
 
   /**
-   * Calls the specified reducer for all entries in the array. Returns the accumulated result.
+   * Calls the specified reducer for all entries in the array, in the left-to-right order. Returns the accumulated result.
    */
   public reduce<NT = T>(
     reducer: (previous: NT, current: T, index: number, entries: T[]) => NT,
@@ -307,7 +316,7 @@ export class Arryx<T = unknown> {
   }
 
   /**
-   * Calls the specified callback function for all the entries the array, in descending order. Returns the accumulated result.
+   * Calls the specified callback function for all the entries the array, in right-to-left order. Returns the accumulated result.
    */
   public reduceRight<NT = T>(
     reducer: (previous: NT, current: T, index: number, entries: T[]) => NT,
@@ -371,14 +380,9 @@ export class Arryx<T = unknown> {
    * Returns a new array as a subset of entries from the existing instance.
    */
   public take(count: number, startIndex?: number): Arryx<T> {
-    const entries: T[] = [];
-    for (let i = startIndex || 0; i < count; i++) {
-      const peekedItem = this.peekAt(i);
-      if (peekedItem) {
-        entries.push(peekedItem);
-      }
-    }
-
+    const start = startIndex ?? 0;
+    const total = start + count;
+    const entries = this.#array.slice(start, total);
     return Arryx.from(entries);
   }
 
