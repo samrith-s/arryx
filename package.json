@@ -1,7 +1,7 @@
 {
   "name": "arrayx",
   "version": "0.0.0",
-  "description": "A lightweight implementation over native Javascript array for concise usage.",
+  "description": "A lightweight implementation over native Javascript array some extra sauce.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "author": "Samrith Shankar <samrith.shankar@outlook.com>",

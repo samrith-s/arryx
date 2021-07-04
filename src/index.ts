@@ -1,7 +1,7 @@
 import { fillValue } from "./utils";
 
 /**
- * A lightweight implementation over native Javascript array for concise usage.
+ * A lightweight implementation over native Javascript array some extra sauce.
  *
  * Examples:
  * ```ts
