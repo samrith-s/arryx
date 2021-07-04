@@ -1,5 +1,7 @@
 # Arryx
 
+![version](https://badgen.net/npm/v/arryx) ![minzip size](https://badgen.net/bundlephobia/minzip/arryx)
+
 A lightweight implementation over native Javascript array for some extra sauce.
 
 ## Table of Contents
@@ -8,6 +10,7 @@ A lightweight implementation over native Javascript array for some extra sauce.
 - [Usage](#usage)
 - [API](#api)
   - [Static methods](#static-methods)
+    - [`create`](#create)
     - [`from`](#from)
     - [`is`](#is)
   - [Properties](#properties)
@@ -56,36 +59,81 @@ A lightweight implementation over native Javascript array for some extra sauce.
 
 ## Installation
 
-```shell
-# via NPM
-npm install arrayx
-
-# via Yarn
-yarn add arrayx
-```
-
----
+- ### via NPM
+  ```shell
+  npm install arryx
+  ```
+- ### via Yarn
+  ```shell
+  yarn add arryx
+  ```
 
 ## Usage
 
-The package exposes the `ArrayX` class which can be used to instantiate a new array.
+The package exposes the `Arryx` class which can be used to instantiate a new array.
 
 ```ts
-import { ArrayX } from "arrayx";
-const array = new ArrayX();
+import { Arryx } from "arryx";
+const array = new Arryx();
 ```
-
----
 
 ## API
 
-The `ArrayX` class follows the native Javascript arrays very closely and tries to mimic and provide as many inbuilt methods as possible so as to not cause a drastic change in the API.
+The `Arryx` class follows the native Javascript arrays very closely and tries to mimic and provide as many inbuilt methods as possible so as to not cause a drastic change in the API.
 
 ### Initialization
 
-WIP
+The `Arryx` class can be initialised almost exactly like the regular `Array` class.
+
+- #### Empty array
+  ```ts
+  const arr = new Arryx();
+  ```
+- #### With a single element
+
+  ```ts
+  const arr = new Arryx("foo"); // ['foo']
+  ```
+
+  ```ts
+  const arr = Arryx.from("foo"); // ['foo']
+  ```
+
+- #### With multiple elements
+
+  ```ts
+  const arr = new Arryx([1, 2, 3]); // [1, 2, 3]
+  ```
+
+  ```ts
+  const arr = Arryx.from([1, 2, 3]); // [1, 2, 3]
+  ```
+
+- #### Empty array of size `N`
+  ```ts
+  const arr = Arryx.create(3); // [empty x3]
+  ```
+  ```ts
+  const arr = Arryx.from(new Array(3)); // [empty x3]
+  ```
 
 ### Static methods
+
+- #### `create`
+
+  Create a new array of the specified size.
+
+  ##### Signature:
+
+  ```ts
+  static create<NT>(size: number): Arryx<NT>
+  ```
+
+  ##### Example:
+
+  ```ts
+  const arr = Arryx.create(3); // [empty x3]
+  ```
 
 - #### `from`
 
@@ -94,22 +142,19 @@ WIP
   ##### Signature:
 
   ```ts
-  static from<FT>(entries: FT | FT[]): ArrayX<FT>
+  static from<FT>(entries: FT | FT[]): Arryx<FT>
   ```
 
   ##### Example:
 
   ```ts
-  const arr = Array.from("a"); // ['a']
-  ```
-
-  ```ts
-  const arr = Array.from([1, 2, 3]); // [1, 2, 3]
+  const arr1 = Arryx.from("a"); // ['a']
+  const arr2 = Arryx.from([1, 2, 3]); // [1, 2, 3]
   ```
 
 - #### `is`
 
-  Checks if the provided argument is an instance of `ArrayX` or not
+  Checks if the provided argument is an instance of `Arryx` or not
 
   ##### Signature:
 
@@ -120,12 +165,9 @@ WIP
   ##### Example:
 
   ```ts
-  console.log(ArrayX.is({})); // false
-  ```
-
-  ```ts
-  const arr = new ArrayX();
-  console.log(ArrayX.is(arr)); // true
+  const arr = new Arryx();
+  Arryx.is(arr); // true
+  Arryx.is({}); // false
   ```
 
 ### Properties
@@ -139,8 +181,8 @@ WIP
   ##### Example:
 
   ```ts
-  const arr = new ArrayX();
-  console.log(arr.empty); // true
+  const arr = new Arryx();
+  arr.empty; // true
   ```
 
 - #### `length`
@@ -148,8 +190,8 @@ WIP
   ##### Return type: `number`
   ##### Example:
   ```ts
-  const arr = new ArrayX([1, 2, 3]);
-  console.log(arr.length); // 3
+  const arr = new Arryx([1, 2, 3]);
+  arr.length; // 3
   ```
 
 ### Methods
@@ -161,18 +203,18 @@ WIP
   ##### Signature:
 
   ```ts
-  public clear(): ArrayX<T>
+  public clear(): Arryx<T>
   ```
 
   ##### Example:
 
   ```ts
-  const arr = new ArrayX([1, 2, 3, 4, 5]);
-  console.log(arr.entries()); // [1, 2, 3, 4, 5]
-  console.log(arr.length); // 5
+  const arr = new Arryx([1, 2, 3, 4, 5]);
+  arr.entries(); // [1, 2, 3, 4, 5]
+  arr.length; // 5
   arr.clear();
-  console.log(arr.entries()); // []
-  console.log(arr.length); // 0
+  arr.entries(); // []
+  arr.length; // 0
   ```
 
 - #### `clone`
@@ -182,17 +224,17 @@ WIP
   ##### Signature:
 
   ```ts
-  public clone(): ArrayX<T>
+  public clone(): Arryx<T>
   ```
 
   ##### Example:
 
   ```ts
-  const arr1 = new ArrayX([1, 2, 3]);
+  const arr1 = new Arryx([1, 2, 3]);
   const arr2 = arr1.clone();
   arr2.update(0, 10);
-  console.log(arr1.entries()); // [1, 2, 3]
-  console.log(arr2.entries()); // [10, 2, 3]
+  arr1.entries(); // [1, 2, 3]
+  arr2.entries(); // [10, 2, 3]
   ```
 
 - #### `concat`
@@ -202,13 +244,15 @@ WIP
   ##### Signature:
 
   ```ts
-  public concat<N>(array: ArrayX<N>): ArrayX<T | N>
+  public concat<N>(array: Arryx<N>): Arryx<T | N>
   ```
 
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const a1 = new Arryx([1, 2, 3]);
+  const a2 = new Arryx([4, 5, 6]);
+  const a3 = a1.concat(a2); // [1, 2, 3, 4, 5, 6]
   ```
 
 - #### `entries`
@@ -224,7 +268,7 @@ WIP
   ##### Example:
 
   ```ts
-  /** Code here **/
+  new Arryx(["a", "b", "c"]).entries(); // ['a', 'b', 'c']
   ```
 
 - #### `every`
@@ -240,7 +284,10 @@ WIP
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr1 = new Arryx([1, 2, 3]);
+  const arr2 = new Arryx(["a", "b", "c"]);
+  arr1.every((item) => Number.isFinite(item)); // true
+  arr2.every((item) => Number.isFinite(item)); // false
   ```
 
 - #### `fill`
@@ -254,13 +301,20 @@ WIP
     value: N extends Function ? never : N,
     startIndex?: number,
     endIndex?: number
-  ): ArrayX<N>
+  ): Arryx<N>
   ```
 
   ##### Example:
 
   ```ts
-  /** Code here **/
+  Arryx.create(5).fill("a").entries();
+  // ['a', 'a', 'a', 'a', 'a']
+
+  Arryx.create(5).fill("b", 0, 1).entries();
+  // ['b', 'b', empty x3]
+
+  Arryx.create(5).fill("c", 1, 2).entries();
+  // [empty, 'c', 'c', empty x2]
   ```
 
 - #### `fillDynamic`
@@ -274,13 +328,26 @@ WIP
     filler: (index: number, entries: N[]) => N,
     startIndex?: number,
     endIndex?: number
-  ): ArrayX<N>
+  ): Arryx<N>
   ```
 
   ##### Example:
 
   ```ts
-  /** Code here **/
+  Arryx.create(5)
+    .fillDynamic((index) => `a${index + 1}`)
+    .entries();
+  // ['a1', 'a2', 'a3', 'a4', 'a5']
+
+  Arryx.create(5)
+    .fillDynamic((index) => `b${index + 1}`, 0, 1)
+    .entries();
+  // ['b1', 'b2', empty x3]
+
+  Arryx.create(5)
+    .fillDynamic((index) => `c${index + 1}`, 2)
+    .entries();
+  // [empty x2, 'c3', 'c4, 'c5']
   ```
 
 - #### `filter`
@@ -290,13 +357,15 @@ WIP
   ##### Signature:
 
   ```ts
-  public filter(predicate: (value: T, index: number, entries: T[]) => value is T): ArrayX<T>
+  public filter(predicate: (value: T, index: number, entries: T[]) => value is T): Arryx<T>
   ```
 
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx([1, 2, 3, 4, 5, 6]);
+  arr.filter((item) => item % 2 === 0).entries();
+  // [2, 4, 6]
   ```
 
 - #### `find`
@@ -312,12 +381,14 @@ WIP
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx([{ id: 1 }, { id: 2 }, { id: 3 }]);
+  arr.find((item) => item.id === 3); // { id: 3 }
+  arr.find((item) => item.id === 100); // undefined
   ```
 
 - #### `findIndex`
 
-  Find the index of the entry in the array, given a predicate.
+  Find the index of the first matching entry in the array, given a predicate. If no match found, returns `-1`.
 
   ##### Signature:
 
@@ -328,7 +399,8 @@ WIP
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx([5, 12, 8, 130, 44]);
+  arr.findIndex((item) => item > 13); // 3
   ```
 
 - #### `flat`
@@ -338,13 +410,16 @@ WIP
   ##### Signature:
 
   ```ts
-  public flat<NT = T>(depth?: number): ArrayX<NT>
+  public flat<NT = T>(depth?: number): Arryx<NT>
   ```
 
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr1 = new Arryx([0, 1, 2, [3, 4]]);
+  const arr2 = new Arryx([0, 1, 2, [[[3, 4]]]]);
+  arr1.flat(); // [0, 1, 2, 3, 4]
+  arr2.flat(2); // [0, 1, 2, [3, 4]]
   ```
 
 - #### `flatMap`
@@ -356,13 +431,15 @@ WIP
   ```ts
   public flatMap<NT = T>(
     mapper: (entry: T, index: number, entries: T[]) => NT | readonly NT[]
-  ): ArrayX<NT>
+  ): Arryx<NT>
   ```
 
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr1 = new Arryx([1, 2, 3, 4]);
+  arr1.flatMap((item) => [item * 2]); // [2, 4, 6, 8]
+  arr1.flatMap((item) => [[item * 2]]); // [[2], [4], [6], [8]]
   ```
 
 - #### `forEach`
@@ -378,7 +455,11 @@ WIP
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new arryx(["a", "b", "c"]);
+  arr.forEach((element) => console.log(element));
+  // a
+  // b
+  // c
   ```
 
 - #### `includes`
@@ -394,23 +475,28 @@ WIP
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx([1, 2, 3]);
+  arr.includes(2); // true
+  arr.includes(4); // true
   ```
 
 - #### `indexOf`
 
-  Find the index of an entry.
+  Find the index of the first occurence of an entry. If no match found, returns `-1`.
 
   ##### Signature:
 
   ```ts
-  public indexOf(entry: T): number
+  public indexOf(entry: T, fromindex?: number): number
   ```
 
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const beasts = new Arryx(["ant", "bison", "camel", "duck", "bison"]);
+  beasts.indexOf("bison"); // 1
+  beasts.indexOf("bison", 2); // 4
+  beasts.indexOf("ox"); // -1
   ```
 
 - #### `insert`
@@ -426,7 +512,13 @@ WIP
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr1 = new Arryx([1, 3]);
+  arr1.insert(1, 2);
+  arr1.entries(); // [1, 2, 3]
+
+  const arr2 = new Arryx([1, 5]);
+  arr2.insert(1, [2, 3, 4]);
+  arr2.entries(); // [1, 2, 3, 4, 5]
   ```
 
 - #### `join`
@@ -442,23 +534,27 @@ WIP
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx([1, 2, 3]);
+  arr.join(); // 1,2,3
+  arr.join(".."); // 1..2..3
   ```
 
 - #### `lastIndexOf`
 
-  Find the index of last occurence of an entry.
+  Find the index of last occurence of an entry. If no match found, returns `-1`.
 
   ##### Signature:
 
   ```ts
-  public lastIndexOf(entry: T): number
+  public lastIndexOf(entry: T, fromIndex?: number): number
   ```
 
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const animals = new Arryx(["Dodo", "Tiger", "Penguin", "Dodo"]);
+  animals.lastIndexOf("Dodo"); // 3
+  animals.lastIndexOf("Dodo", 1); // 0
   ```
 
 - #### `map`
@@ -468,13 +564,14 @@ WIP
   ##### Signature:
 
   ```ts
-  public map<NT = T>(mapper: (entry: T, index: number, entries: T[]) => NT): ArrayX<NT>
+  public map<NT = T>(mapper: (entry: T, index: number, entries: T[]) => NT): Arryx<NT>
   ```
 
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx([1, 2, 3]);
+  arr.map((item) => item * 2).entiries(); // [2, 4, 6]
   ```
 
 - #### `peek`
@@ -490,7 +587,8 @@ WIP
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx(["foo", "bar", "baz"]);
+  arr.peek(); // foo
   ```
 
 - #### `peekAt`
@@ -506,7 +604,8 @@ WIP
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx(["foo", "bar", "baz"]);
+  arr.peekAt(1); // bar
   ```
 
 - #### `peekLast`
@@ -522,7 +621,8 @@ WIP
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx(["foo", "bar", "baz"]);
+  arr.peekAt(1); // baz
   ```
 
 - #### `pop`
@@ -538,7 +638,9 @@ WIP
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx([1, 2, 3]);
+  arr.pop();
+  arr.entries(); // [1, 2]
   ```
 
 - #### `push`
@@ -554,12 +656,13 @@ WIP
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx([1, 2]);
+  arr.push();
   ```
 
 - #### `reduce`
 
-  Calls the specified reducer for all entries in the array. Returns the accumulated result.
+  Calls the specified reducer for all entries in the array, in the left-to-right order. Returns the accumulated result.
 
   ##### Signature:
 
@@ -573,12 +676,15 @@ WIP
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx([1, 2, 3]);
+  const reducer = (accumulator, current) => accumulator + current;
+  arr.reduce(reducer); // 6
+  arr.reduce(reducer, 5); // 11
   ```
 
 - #### `reduceRight`
 
-  Calls the specified callback function for all the entries the array, in descending order. Returns the accumulated result.
+  Calls the specified callback function for all the entries the array, in right-to-left order. Returns the accumulated result.
 
   ##### Signature:
 
@@ -592,7 +698,13 @@ WIP
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx([
+    [0, 1],
+    [2, 3],
+    [4, 5],
+  ]);
+  const reducer = (accumulator, currentValue) => accumulator.concat(currentValue);
+  arr.reduceRight(reducer); // [4, 5, 2, 3, 0, 1]
   ```
 
 - #### `removeAt`
@@ -608,7 +720,9 @@ WIP
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx([1, 3, 2]);
+  arr.removeAt(1);
+  arr.entries(); // [1, 2]
   ```
 
 - #### `removeRange`
@@ -624,7 +738,9 @@ WIP
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx([1, 3, 4, 5, 6, 7, 2]);
+  arr.removeRange(1, 5);
+  arr.entries(); // [1, 2]
   ```
 
 - #### `reverse`
@@ -634,13 +750,14 @@ WIP
   ##### Signature:
 
   ```ts
-  public reverse(): ArrayX<T>
+  public reverse(): Arryx<T>
   ```
 
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx([1, 2, 3]);
+  arr.reverse().entries(); // [3, 2, 1]
   ```
 
 - #### `shift`
@@ -656,7 +773,9 @@ WIP
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx([1, 2, 3]);
+  arr.shift();
+  arr.entries(); // [2, 3]
   ```
 
 - #### `some`
@@ -672,7 +791,9 @@ WIP
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx([1, 2, 3]);
+  arr.some((item) => item % 2 === 0); // true
+  arr.some((item) => item < 0); // false
   ```
 
 - #### `sort`
@@ -682,13 +803,14 @@ WIP
   ##### Signature:
 
   ```ts
-  public sort(sorter?: (firstEntry: T, secondEntry: T) => number): ArrayX<T>
+  public sort(sorter?: (firstEntry: T, secondEntry: T) => number): Arryx<T>
   ```
 
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx([3, 4, 2, 1, 7, 11]);
+  arr.sort().entries(); // [1, 2, 3, 4, 7, 11]
   ```
 
 - #### `take`
@@ -698,13 +820,19 @@ WIP
   ##### Signature:
 
   ```ts
-  public take(count: number, startIndex?: number): ArrayX<T>
+  public take(count: number, startIndex?: number): Arryx<T>
   ```
 
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx([1, 2, 3, 4, 5, 6]);
+
+  const arr2 = arr.take(3);
+  arr2.entries(); // [1, 2, 3]
+
+  const arr3 = arr.take(3, 3);
+  arr3.entries(); // [4, 5, 6];
   ```
 
 - #### `toString`
@@ -720,7 +848,8 @@ WIP
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx([1, 2, 3]);
+  arr.toString(); // 1,2,3
   ```
 
 - #### `unshift`
@@ -736,7 +865,9 @@ WIP
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx([2, 3]);
+  arr.unshift(1);
+  arr.entries(); // [1, 2, 3]
   ```
 
 - #### `update`
@@ -746,13 +877,15 @@ WIP
   ##### Signature:
 
   ```ts
-   public update(index: number, newItem: T): ArrayX<T>
+   public update(index: number, newItem: T): Arryx<T>
   ```
 
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx([1, 2, 3]);
+  arr.update(0, 10);
+  arr.entries(); // [10, 2, 3]
   ```
 
 - #### `values`
@@ -768,5 +901,6 @@ WIP
   ##### Example:
 
   ```ts
-  /** Code here **/
+  const arr = new Arryx([1, 2, 3]);
+  arr.values(); // Array Iterator {}
   ```
