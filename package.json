@@ -1,12 +1,15 @@
 {
-  "name": "arrayx",
-  "version": "0.0.0",
+  "name": "arryx",
+  "version": "1.0.0-beta.0",
   "description": "A lightweight implementation over native Javascript array for some extra sauce.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "author": "Samrith Shankar <samrith.shankar@outlook.com>",
   "license": "MIT",
   "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:samrith-s/arrayx.git"
