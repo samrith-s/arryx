@@ -1,3 +1,3 @@
 # ArrayX
 
-A simple abstraction over the native `Array` which adds extra flavour to concise usage.
+A lightweight implementation over native Javascript array for concise usage.

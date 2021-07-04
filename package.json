@@ -1,12 +1,21 @@
 {
   "name": "arrayx",
   "version": "0.0.0",
-  "description": "A simple stack implementation over native Array data structure",
+  "description": "A lightweight implementation over native Javascript array for concise usage.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "author": "Samrith Shankar <samrith.shankar@outlook.com>",
   "license": "MIT",
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:samrith-s/arrayx.git"
+  },
+  "files": [
+    "lib/",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "postinstall": "husky install",
     "prepare": "yarn build",
