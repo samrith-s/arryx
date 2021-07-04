@@ -394,6 +394,13 @@ export class ArrayX<T = unknown> {
   }
 
   /**
+   * Returns an iterable of entries in the array.
+   */
+  public values(): Iterable<T> {
+    return this.#array.values();
+  }
+
+  /**
    * Returns a string representation of the array.
    */
   public toString(): string {
