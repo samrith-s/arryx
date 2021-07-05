@@ -21,7 +21,8 @@
   ],
   "scripts": {
     "postinstall": "husky install",
-    "prepare": "yarn build",
+    "prepublish": "yarn build",
+    "publish": "clean-publish --fields private,publishConfig,scripts,devDependencies",
     "dev": "tsup --sourcemap --watch src --watch tsup.config.ts",
     "build": "tsup",
     "use": "ts-node ./src/usage",
@@ -30,8 +31,10 @@
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
+    "@types/node": "^16.0.0",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "@typescript-eslint/parser": "^4.28.1",
+    "clean-publish": "^2.2.0",
     "eslint": "^7.30.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
