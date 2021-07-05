@@ -73,7 +73,7 @@ export class Arryx<T = unknown> {
    * Returns whether the array is empty or not.
    */
   get empty(): boolean {
-    return !!this.length;
+    return !this.length;
   }
 
   /**
@@ -96,7 +96,7 @@ export class Arryx<T = unknown> {
    * Creates a shallow copy of the array.
    */
   public clone(): Arryx<T> {
-    return Arryx.from<T>(this.#array);
+    return Arryx.from<T>(this.#array.slice());
   }
 
   /**
