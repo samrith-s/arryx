@@ -5,9 +5,9 @@ name: checks
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 env:
   NODE_VERSION: '14'
@@ -34,7 +34,7 @@ jobs:
           cache: 'yarn'
       - run: yarn install --frozen-lockfile --ignore-scripts
       - run: yarn test
-      
+
   build:
     runs-on: ubuntu-latest
     needs: [lint, test]
@@ -44,5 +44,5 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'yarn'
-      - run: yarn install --frozen-lockfile --ignore-scripts
+      - run: yarn install --frozen-lockfile
       - run: yarn build
