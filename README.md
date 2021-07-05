@@ -4,7 +4,7 @@
 
 > A lightweight implementation over native Javascript array for some extra sauce.
 
-Ever wondered why arrays in Javascript are tedious to work with? This is the extension to arrays that you deserve. Arryx is comprehensive library which provides all the inbuilt methods and more to make working with arrays a breeze. All this in [**less than 2kb**](https://bundlephobia.com/package/arryx).
+Ever felt like arrays in Javascript are tedious to work with? Then this is the extension to arrays that you deserve. Arryx is a comprehensive library which provides extra firepower to make working with arrays a breeze. All this in [**less than 2kb**](https://bundlephobia.com/package/arryx).
 
 ## Table of Contents
 
