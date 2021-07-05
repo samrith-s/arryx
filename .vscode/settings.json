@@ -6,6 +6,7 @@
     "source.fixAll": true
   },
   "files.associations": {
-    "*rc": "json"
+    "*rc": "json",
+    ".npmrc": "properties"
   }
 }
