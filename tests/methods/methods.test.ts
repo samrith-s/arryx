@@ -13,6 +13,8 @@ import { MethodFlatMap } from './stubs/flatMap.test';
 import { MethodForEach } from './stubs/forEach.test';
 import { MethodIncludes } from './stubs/includes.test';
 import { MethodIndexOf } from './stubs/indexOf.test';
+import { MethodInsertAfter } from './stubs/insertAfter.test';
+import { MethodInsertBefore } from './stubs/insertBefore.test';
 
 describe('Methods', () => {
   MethodClear();
@@ -30,4 +32,6 @@ describe('Methods', () => {
   MethodForEach();
   MethodIncludes();
   MethodIndexOf();
+  MethodInsertAfter();
+  MethodInsertBefore();
 });

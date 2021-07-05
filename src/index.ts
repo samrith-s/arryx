@@ -222,9 +222,28 @@ export class Arryx<T = unknown> {
   }
 
   /**
-   * Insert a new entry at the specified index.
+   * Insert a new entry after the specified index.
    */
-  public insert(index: number, entries: T | T[]): number {
+  public insertAfter(index: number, entries: T | T[]): number {
+    if (Array.isArray(entries)) {
+      let startIndex = index + 1;
+      entries.forEach((entry) => {
+        this.#array.splice(startIndex, 0, entry);
+        startIndex++;
+        this.#length++;
+      });
+    } else {
+      this.#array.splice(index + 1, 0, entries);
+      this.#length++;
+    }
+
+    return this.#length;
+  }
+
+  /**
+   * Insert a new entry before the specified index.
+   */
+  public insertBefore(index: number, entries: T | T[]): number {
     if (Array.isArray(entries)) {
       let startIndex = index;
       entries.forEach((entry) => {

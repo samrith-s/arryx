@@ -32,7 +32,8 @@ A lightweight implementation over native Javascript array for some extra sauce.
     - [`forEach`](#forEach)
     - [`includes`](#includes)
     - [`indexOf`](#indexOf)
-    - [`insert`](#insert)
+    - [`insertAfter`](#insertAfter)
+    - [`insertBefore`](#insertBefore)
     - [`join`](#join)
     - [`lastIndexOf`](#lastIndexOf)
     - [`map`](#map)
@@ -73,7 +74,7 @@ A lightweight implementation over native Javascript array for some extra sauce.
 The package exposes the `Arryx` class which can be used to instantiate a new array.
 
 ```ts
-import { Arryx } from "arryx";
+import { Arryx } from 'arryx';
 const array = new Arryx();
 ```
 
@@ -92,11 +93,11 @@ The `Arryx` class can be initialised almost exactly like the regular `Array` cla
 - #### With a single element
 
   ```ts
-  const arr = new Arryx("foo"); // ['foo']
+  const arr = new Arryx('foo'); // ['foo']
   ```
 
   ```ts
-  const arr = Arryx.from("foo"); // ['foo']
+  const arr = Arryx.from('foo'); // ['foo']
   ```
 
 - #### With multiple elements
@@ -148,7 +149,7 @@ The `Arryx` class can be initialised almost exactly like the regular `Array` cla
   ##### Example:
 
   ```ts
-  const arr1 = Arryx.from("a"); // ['a']
+  const arr1 = Arryx.from('a'); // ['a']
   const arr2 = Arryx.from([1, 2, 3]); // [1, 2, 3]
   ```
 
@@ -268,7 +269,7 @@ The `Arryx` class can be initialised almost exactly like the regular `Array` cla
   ##### Example:
 
   ```ts
-  new Arryx(["a", "b", "c"]).entries(); // ['a', 'b', 'c']
+  new Arryx(['a', 'b', 'c']).entries(); // ['a', 'b', 'c']
   ```
 
 - #### `every`
@@ -285,7 +286,7 @@ The `Arryx` class can be initialised almost exactly like the regular `Array` cla
 
   ```ts
   const arr1 = new Arryx([1, 2, 3]);
-  const arr2 = new Arryx(["a", "b", "c"]);
+  const arr2 = new Arryx(['a', 'b', 'c']);
   arr1.every((item) => Number.isFinite(item)); // true
   arr2.every((item) => Number.isFinite(item)); // false
   ```
@@ -307,13 +308,13 @@ The `Arryx` class can be initialised almost exactly like the regular `Array` cla
   ##### Example:
 
   ```ts
-  Arryx.create(5).fill("a").entries();
+  Arryx.create(5).fill('a').entries();
   // ['a', 'a', 'a', 'a', 'a']
 
-  Arryx.create(5).fill("b", 0, 1).entries();
+  Arryx.create(5).fill('b', 0, 1).entries();
   // ['b', 'b', empty x3]
 
-  Arryx.create(5).fill("c", 1, 2).entries();
+  Arryx.create(5).fill('c', 1, 2).entries();
   // [empty, 'c', 'c', empty x2]
   ```
 
@@ -455,7 +456,7 @@ The `Arryx` class can be initialised almost exactly like the regular `Array` cla
   ##### Example:
 
   ```ts
-  const arr = new arryx(["a", "b", "c"]);
+  const arr = new arryx(['a', 'b', 'c']);
   arr.forEach((element) => console.log(element));
   // a
   // b
@@ -493,20 +494,42 @@ The `Arryx` class can be initialised almost exactly like the regular `Array` cla
   ##### Example:
 
   ```ts
-  const beasts = new Arryx(["ant", "bison", "camel", "duck", "bison"]);
-  beasts.indexOf("bison"); // 1
-  beasts.indexOf("bison", 2); // 4
-  beasts.indexOf("ox"); // -1
+  const beasts = new Arryx(['ant', 'bison', 'camel', 'duck', 'bison']);
+  beasts.indexOf('bison'); // 1
+  beasts.indexOf('bison', 2); // 4
+  beasts.indexOf('ox'); // -1
   ```
 
-- #### `insert`
+- #### `insertAfter`
 
-  Insert a new entry at the specified index.
+  Insert a new entry after the specified index.
 
   ##### Signature:
 
   ```ts
-  public insert(index: number, entries: T | T[]): number
+  public insertAfter(index: number, entries: T | T[]): number
+  ```
+
+  ##### Example:
+
+  ```ts
+  const arr1 = new Arryx([1, 3]);
+  arr1.insert(0, 2);
+  arr1.entries(); // [1, 2, 3]
+
+  const arr2 = new Arryx([1, 5]);
+  arr2.insert(0, [2, 3, 4]);
+  arr2.entries(); // [1, 2, 3, 4, 5]
+  ```
+
+- #### `insertBefore`
+
+  Insert a new entry before the specified index.
+
+  ##### Signature:
+
+  ```ts
+  public insertBefore(index: number, entries: T | T[]): number
   ```
 
   ##### Example:
@@ -536,7 +559,7 @@ The `Arryx` class can be initialised almost exactly like the regular `Array` cla
   ```ts
   const arr = new Arryx([1, 2, 3]);
   arr.join(); // 1,2,3
-  arr.join(".."); // 1..2..3
+  arr.join('..'); // 1..2..3
   ```
 
 - #### `lastIndexOf`
@@ -552,9 +575,9 @@ The `Arryx` class can be initialised almost exactly like the regular `Array` cla
   ##### Example:
 
   ```ts
-  const animals = new Arryx(["Dodo", "Tiger", "Penguin", "Dodo"]);
-  animals.lastIndexOf("Dodo"); // 3
-  animals.lastIndexOf("Dodo", 1); // 0
+  const animals = new Arryx(['Dodo', 'Tiger', 'Penguin', 'Dodo']);
+  animals.lastIndexOf('Dodo'); // 3
+  animals.lastIndexOf('Dodo', 1); // 0
   ```
 
 - #### `map`
@@ -587,7 +610,7 @@ The `Arryx` class can be initialised almost exactly like the regular `Array` cla
   ##### Example:
 
   ```ts
-  const arr = new Arryx(["foo", "bar", "baz"]);
+  const arr = new Arryx(['foo', 'bar', 'baz']);
   arr.peek(); // foo
   ```
 
@@ -604,7 +627,7 @@ The `Arryx` class can be initialised almost exactly like the regular `Array` cla
   ##### Example:
 
   ```ts
-  const arr = new Arryx(["foo", "bar", "baz"]);
+  const arr = new Arryx(['foo', 'bar', 'baz']);
   arr.peekAt(1); // bar
   ```
 
@@ -621,7 +644,7 @@ The `Arryx` class can be initialised almost exactly like the regular `Array` cla
   ##### Example:
 
   ```ts
-  const arr = new Arryx(["foo", "bar", "baz"]);
+  const arr = new Arryx(['foo', 'bar', 'baz']);
   arr.peekAt(1); // baz
   ```
 
