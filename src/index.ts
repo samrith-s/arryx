@@ -270,7 +270,7 @@ export class Arryx<T = unknown> {
    * Find the index of last occurence of an entry. If no match found, returns `-1`.
    */
   public lastIndexOf(entry: T, fromIndex?: number): number {
-    return this.#array.lastIndexOf(entry, fromIndex);
+    return this.#array.lastIndexOf(entry, fromIndex ?? this.#length);
   }
 
   /**

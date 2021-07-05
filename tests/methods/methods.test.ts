@@ -15,6 +15,12 @@ import { MethodIncludes } from './stubs/includes.test';
 import { MethodIndexOf } from './stubs/indexOf.test';
 import { MethodInsertAfter } from './stubs/insertAfter.test';
 import { MethodInsertBefore } from './stubs/insertBefore.test';
+import { MethodJoin } from './stubs/join.test';
+import { MethodLastIndexOf } from './stubs/lastIndexOf.test';
+import { MethodMap } from './stubs/map.test';
+import { MethodPeek } from './stubs/peek.test';
+import { MethodPeekAt } from './stubs/peekAt.test';
+import { MethodPeekLast } from './stubs/peekLast.test';
 
 describe('Methods', () => {
   MethodClear();
@@ -34,4 +40,10 @@ describe('Methods', () => {
   MethodIndexOf();
   MethodInsertAfter();
   MethodInsertBefore();
+  MethodJoin();
+  MethodLastIndexOf();
+  MethodMap();
+  MethodPeek();
+  MethodPeekAt();
+  MethodPeekLast();
 });
