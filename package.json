@@ -1,6 +1,6 @@
 {
   "name": "arryx",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "A lightweight implementation over native Javascript array for some extra sauce.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
