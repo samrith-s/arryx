@@ -1,10 +1,10 @@
 # Arryx
 
-![version](https://badgen.net/npm/v/arryx) ![minzip size](https://badgen.net/bundlephobia/minzip/arryx)
+[![version](https://badgen.net/npm/v/arryx)](https://www.npmjs.com/package/arryx) [![minzip size](https://badgen.net/bundlephobia/minzip/arryx)](https://bundlephobia.com/package/arryx) [![checks](https://github.com/samrith-s/arryx/actions/workflows/checks.yml/badge.svg)](https://github.com/samrith-s/arryx/actions/workflows/checks.yml)
 
 > A lightweight implementation over native Javascript array for some extra sauce.
 
-Ever wondered why arrays in Javascript are notoriously difficult to work with? Worry no more. Arryx is the extension to arrays that you deserve. No more splicing and slicing. No more explaining to your someone why we access an array with square brackets. Arrys is comprehensive library which provides all the inbuilt methods and more to make working with arrays a breeze.
+Ever wondered why arrays in Javascript are tedious to work with? This is the extension to arrays that you deserve. Arryx is comprehensive library which provides all the inbuilt methods and more to make working with arrays a breeze. All this in [**less than 2kb**](https://bundlephobia.com/package/arryx).
 
 ## Table of Contents
 
@@ -57,8 +57,8 @@ Ever wondered why arrays in Javascript are notoriously difficult to work with? W
     - [`unshift`](#unshift)
     - [`update`](#update)
     - [`values`](#values)
-
----
+- [Differences](#differences)
+- [Contributing](#contributing)
 
 ## Installation
 
@@ -929,3 +929,42 @@ The `Arryx` class can be initialised almost exactly like the regular `Array` cla
   const arr = new Arryx([1, 2, 3]);
   arr.values(); // Array Iterator {}
   ```
+
+## Differences
+
+Naturally, being an abstraction over the native array there are quite a couple of distinct differences.
+
+- Passing a number to the constructor will create a new array with **EXACTLY** one item instead of the number of items
+  ```ts
+  new Array(3); // [empty x3]
+  new Arryx(3); // [3]
+  ```
+  This is done to ensure consistency between creating an array with other data types.
+- To access the values you need to call `entries` method.
+  ```ts
+  const array = new Arryx([1, 2, 3]);
+  array.entries(); // [1, 2, 3]
+  ```
+
+## Contributing
+
+All PRs are welcome. To setup the project you can run the following commands once you fork and clone the repository:
+
+```bash
+yarn install
+```
+
+- To develop locally:
+  ```
+  yarn dev
+  ```
+- To build from source:
+  ```
+  yarn build
+  ```
+
+Once your changes are made, create a PR from your fork to this repository.
+
+## License
+
+MIT. Do whatever you want with it.

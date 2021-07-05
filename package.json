@@ -25,7 +25,6 @@
     "postpublish": "node scripts/postpublish",
     "dev": "tsup --sourcemap --watch src --watch tsup.config.ts",
     "build": "tsup",
-    "use": "ts-node ./src/usage",
     "release": "standard-version",
     "test": "mocha",
     "test:watch": "mocha --watch",
