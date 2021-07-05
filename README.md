@@ -2,7 +2,9 @@
 
 ![version](https://badgen.net/npm/v/arryx) ![minzip size](https://badgen.net/bundlephobia/minzip/arryx)
 
-A lightweight implementation over native Javascript array for some extra sauce.
+> A lightweight implementation over native Javascript array for some extra sauce.
+
+Ever wondered why arrays in Javascript are notoriously difficult to work with? Worry no more. Arryx is the extension to arrays that you deserve. No more splicing and slicing. No more explaining to your someone why we access an array with square brackets. Arrys is comprehensive library which provides all the inbuilt methods and more to make working with arrays a breeze.
 
 ## Table of Contents
 
