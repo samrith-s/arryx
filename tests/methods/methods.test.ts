@@ -5,6 +5,7 @@ import { MethodEntries } from './stubs/entries.test';
 import { MethodEvery } from './stubs/every.test';
 import { MethodFill } from './stubs/fill.test';
 import { MethodFillDynamic } from './stubs/fillDynamic.test';
+import { MethodFilter } from './stubs/filter.test';
 import { MethodFlat } from './stubs/flat.test';
 import { MethodFlatMap } from './stubs/flatMap.test';
 import { MethodForEach } from './stubs/forEach.test';
@@ -24,4 +25,5 @@ describe('Methods', () => {
   MethodForEach();
   MethodIncludes();
   MethodIndexOf();
+  MethodFilter();
 });

@@ -163,9 +163,9 @@ export class Arryx<T = unknown> {
   /**
    * Returns a new array with entries of the array that meet the predicate.
    */
-  public filter(predicate: (value: T, index: number, entries: T[]) => value is T): Arryx<T> {
-    const newEntries = this.#array.filter<T>(predicate);
-    return Arryx.from<T>(newEntries);
+  public filter<NT = T>(predicate: (value: T, index: number, entries: T[]) => boolean): Arryx<NT> {
+    const newEntries = this.#array.filter(predicate);
+    return Arryx.from<NT>(newEntries as unknown as NT[]);
   }
 
   /**
