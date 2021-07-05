@@ -321,7 +321,7 @@ export class Arryx<T = unknown> {
    */
   public push(entry: T): number {
     this.#array.push(entry);
-    return this.#length++;
+    return ++this.#length;
   }
 
   /**
@@ -417,7 +417,7 @@ export class Arryx<T = unknown> {
    */
   public unshift(entry: T): number {
     this.#array.unshift(entry);
-    return this.#length++;
+    return ++this.#length;
   }
 
   /**

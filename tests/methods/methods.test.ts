@@ -21,6 +21,10 @@ import { MethodMap } from './stubs/map.test';
 import { MethodPeek } from './stubs/peek.test';
 import { MethodPeekAt } from './stubs/peekAt.test';
 import { MethodPeekLast } from './stubs/peekLast.test';
+import { MethodPop } from './stubs/pop.test';
+import { MethodPush } from './stubs/push.test';
+import { MethodShift } from './stubs/shift.test';
+import { MethodUnshift } from './stubs/unshift.test';
 
 describe('Methods', () => {
   MethodClear();
@@ -46,4 +50,8 @@ describe('Methods', () => {
   MethodPeek();
   MethodPeekAt();
   MethodPeekLast();
+  MethodPop();
+  MethodPush();
+  MethodShift();
+  MethodUnshift();
 });
