@@ -28,7 +28,8 @@
     "use": "ts-node ./src/usage",
     "release": "standard-version",
     "test": "mocha",
-    "test:watch": "mocha --watch"
+    "test:watch": "mocha --watch",
+    "lint": "eslint src/**/* tests/**/* --ext ts"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
