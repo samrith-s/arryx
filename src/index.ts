@@ -329,9 +329,15 @@ export class Arryx<T = unknown> {
    */
   public reduce<NT = T>(
     reducer: (previous: NT, current: T, index: number, entries: T[]) => NT,
-    initialValue: NT
+    initialValue?: NT
   ): NT {
-    return this.#array.reduce<NT>(reducer, initialValue);
+    if (initialValue) {
+      return this.#array.reduce<NT>(reducer, initialValue) as unknown as NT;
+    }
+
+    return this.#array.reduce(
+      reducer as unknown as (previous: T, current: T, index: number, entries: T[]) => T
+    ) as unknown as NT;
   }
 
   /**
@@ -339,9 +345,15 @@ export class Arryx<T = unknown> {
    */
   public reduceRight<NT = T>(
     reducer: (previous: NT, current: T, index: number, entries: T[]) => NT,
-    initialValue: NT
+    initialValue?: NT
   ): NT {
-    return this.#array.reduceRight<NT>(reducer, initialValue);
+    if (initialValue) {
+      return this.#array.reduceRight<NT>(reducer, initialValue) as unknown as NT;
+    }
+
+    return this.#array.reduceRight(
+      reducer as unknown as (previous: T, current: T, index: number, entries: T[]) => T
+    ) as unknown as NT;
   }
 
   /**

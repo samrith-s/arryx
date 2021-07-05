@@ -23,6 +23,8 @@ import { MethodPeekAt } from './stubs/peekAt.test';
 import { MethodPeekLast } from './stubs/peekLast.test';
 import { MethodPop } from './stubs/pop.test';
 import { MethodPush } from './stubs/push.test';
+import { MethodReduce } from './stubs/reduce.test';
+import { MethodReduceRight } from './stubs/reduceRight.test';
 import { MethodShift } from './stubs/shift.test';
 import { MethodUnshift } from './stubs/unshift.test';
 
@@ -52,6 +54,8 @@ describe('Methods', () => {
   MethodPeekLast();
   MethodPop();
   MethodPush();
+  MethodReduce();
+  MethodReduceRight();
   MethodShift();
   MethodUnshift();
 });
