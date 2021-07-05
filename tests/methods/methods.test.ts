@@ -34,6 +34,7 @@ import { MethodSort } from './stubs/sort.test';
 import { MethodTake } from './stubs/take.test';
 import { MethodToString } from './stubs/toString.test';
 import { MethodUnshift } from './stubs/unshift.test';
+import { MethodUpdate } from './stubs/update.test';
 import { MethodValues } from './stubs/values.test';
 
 describe('Methods', () => {
@@ -73,5 +74,6 @@ describe('Methods', () => {
   MethodTake();
   MethodToString();
   MethodUnshift();
+  MethodUpdate();
   MethodValues();
 });

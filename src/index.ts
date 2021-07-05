@@ -436,7 +436,7 @@ export class Arryx<T = unknown> {
    * Update the entry at a specified index.
    */
   public update(index: number, newItem: T): Arryx<T> {
-    if (index >= 0 && index < length) {
+    if (index >= 0 && index < this.#length) {
       this.#array[index] = newItem;
     }
     return this;
