@@ -1,4 +1,4 @@
-import { fillValue } from "./utils";
+import { fillValue } from './utils';
 
 /**
  * A lightweight implementation over native Javascript array for some extra sauce..

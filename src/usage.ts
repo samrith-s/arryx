@@ -1,4 +1,4 @@
-import { Arryx } from ".";
+import { Arryx } from '.';
 
 // const array = new Arryx([1, 2, 3, 4]);
 // console.log("before:", array.entries(), array.length);
