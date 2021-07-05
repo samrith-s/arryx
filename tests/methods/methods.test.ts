@@ -25,8 +25,16 @@ import { MethodPop } from './stubs/pop.test';
 import { MethodPush } from './stubs/push.test';
 import { MethodReduce } from './stubs/reduce.test';
 import { MethodReduceRight } from './stubs/reduceRight.test';
+import { MethodRemoveAt } from './stubs/removeAt.test';
+import { MethodRemoveRange } from './stubs/removeRange.test';
+import { MethodReverse } from './stubs/reverse.test';
 import { MethodShift } from './stubs/shift.test';
+import { MethodSome } from './stubs/some.test';
+import { MethodSort } from './stubs/sort.test';
+import { MethodTake } from './stubs/take.test';
+import { MethodToString } from './stubs/toString.test';
 import { MethodUnshift } from './stubs/unshift.test';
+import { MethodValues } from './stubs/values.test';
 
 describe('Methods', () => {
   MethodClear();
@@ -56,6 +64,14 @@ describe('Methods', () => {
   MethodPush();
   MethodReduce();
   MethodReduceRight();
+  MethodRemoveAt();
+  MethodRemoveRange();
+  MethodReverse();
   MethodShift();
+  MethodSome();
+  MethodSort();
+  MethodTake();
+  MethodToString();
   MethodUnshift();
+  MethodValues();
 });
