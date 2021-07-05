@@ -3,6 +3,10 @@
     "moduleResolution": "node",
     "strict": true,
     "target": "ES2015",
-    "lib": ["ESNext", "DOM"]
+    "lib": ["ESNext", "DOM"],
+    "baseUrl": ".",
+    "paths": {
+      "@arryx": ["src"]
+    }
   }
 }
