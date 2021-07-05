@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { Arryx } from 'lib';
+import { Arryx } from '@arryx';
 
 export function MethodEvery(): void {
   describe('every', () => {
