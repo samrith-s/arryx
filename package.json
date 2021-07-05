@@ -21,7 +21,8 @@
   ],
   "scripts": {
     "postinstall": "husky install",
-    "prepare": "yarn build",
+    "prepublishOnly": "yarn build && node scripts/prepublish",
+    "postpublish": "node scripts/postpublish",
     "dev": "tsup --sourcemap --watch src --watch tsup.config.ts",
     "build": "tsup",
     "use": "ts-node ./src/usage",
